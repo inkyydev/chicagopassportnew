@@ -8,8 +8,6 @@ import { blogsData } from "./dataBlog";
 import ImagePassport from "../../components/sections/ImagePassport";
 import Pagination from "../../components/common/Pagination";
 
-import "./Blog.css";
-
 export default function BlogPage() {
   const recent = blogsData.slice(0, 2);
   const all = blogsData;

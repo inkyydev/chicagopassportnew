@@ -6,6 +6,22 @@ import mailIcon from "../../../assets/email-icon.svg";
 import logo from "../../../assets/logo.svg";
 import accountIcon from "../../../assets/account-icon.svg";
 
+const Chevron = ({ open }) => (
+  <svg
+    className={`w-[12px] h-[12px] ml-[6px] transition-transform duration-200 ${
+      open ? "rotate-180" : ""
+    }`}
+    viewBox="0 0 20 20"
+    fill="currentColor"
+  >
+    <path
+      fillRule="evenodd"
+      d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.7a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z"
+      clipRule="evenodd"
+    />
+  </svg>
+);
+
 const setCookie = (name, value, days) => {
   let expires = "";
   if (days) {
@@ -144,6 +160,7 @@ export default function Header() {
                   US Passport
                 </Link>
 
+                {/* VISAS */}
                 <div
                   className="relative w-full lg:w-auto"
                   onMouseEnter={() => !isMobile() && setVisasOpen(true)}
@@ -151,9 +168,9 @@ export default function Header() {
                 >
                   <Link
                     to="/visas"
-                    className="text-[14px] md:text-[16px] sm:text-[16px] pb-[10px] "
+                    className="flex items-center text-[16px] md:text-[16px] sm:text-[16px] pb-[0px] lg:pb-[10px]"
                     onClick={(e) => {
-                      if (window.innerWidth < 1024) {
+                      if (isMobile()) {
                         if (!visasOpen) {
                           e.preventDefault();
                           setVisasOpen(true);
@@ -167,19 +184,29 @@ export default function Header() {
                     }}
                   >
                     Visas
+                    <span
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        setVisasOpen((p) => !p);
+                        setEVisasOpen(false);
+                      }}
+                    >
+                      <Chevron open={visasOpen} />
+                    </span>
                   </Link>
 
                   <div
                     className={`
                       lg:absolute
-                      mt-[5px]
+                      mt-[5px] md:mt-[0px]
                       bg-white
                       rounded-lg
                       shadow-lg
                       w-[calc(100%-20px)] lg:min-w-[220px] lg:w-auto
                       overflow-hidden
                       transition-all duration-300
-                      py-[7px]
+                      py-[0px] lg:py-[7px]
                       ${
                         visasOpen
                           ? "opacity-100 pointer-events-auto max-h-[500px]"
@@ -208,6 +235,7 @@ export default function Header() {
                   </div>
                 </div>
 
+                {/* E-VISAS */}
                 <div
                   className="relative w-full lg:w-auto"
                   onMouseEnter={() => !isMobile() && setEVisasOpen(true)}
@@ -215,9 +243,9 @@ export default function Header() {
                 >
                   <Link
                     to="/e-visas"
-                    className="text-[14px] md:text-[16px] sm:text-[16px] pb-[10px]"
+                    className="flex items-center text-[16px] md:text-[16px] sm:text-[16px] pb-[0px] lg:pb-[10px]"
                     onClick={(e) => {
-                      if (window.innerWidth < 1024) {
+                      if (isMobile()) {
                         if (!eVisasOpen) {
                           e.preventDefault();
                           setEVisasOpen(true);
@@ -231,19 +259,29 @@ export default function Header() {
                     }}
                   >
                     E-Visas
+                    <span
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        setEVisasOpen((p) => !p);
+                        setVisasOpen(false);
+                      }}
+                    >
+                      <Chevron open={eVisasOpen} />
+                    </span>
                   </Link>
 
                   <div
                     className={`
                       lg:absolute
-                      mt-[5px]
+                       mt-[5px] md:mt-[0px]
                       bg-white
                       rounded-lg
                       shadow-lg
                       w-[calc(100%-20px)] lg:min-w-[220px] lg:w-auto
                       overflow-hidden
                       transition-all duration-300
-                      py-[7px]
+                      py-[0px] lg:py-[7px]
                       ${
                         eVisasOpen
                           ? "opacity-100 pointer-events-auto max-h-[500px]"

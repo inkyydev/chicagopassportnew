@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 import usPassportImg from "../../../assets/us-passport-img.png";
@@ -11,6 +11,18 @@ export default function UsPassport() {
   const defaultIndex = location.state?.activeIndex || 0;
   const [activeIndex, setActiveIndex] = useState(defaultIndex);
   const activeItem = passportSections[activeIndex];
+
+  useEffect(() => {
+    const handler = (e) => {
+      setActiveIndex(e.detail);
+    };
+
+    window.addEventListener("passport-change", handler);
+
+    return () => {
+      window.removeEventListener("passport-change", handler);
+    };
+  }, []);
 
   return (
     <>

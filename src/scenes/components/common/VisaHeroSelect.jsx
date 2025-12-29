@@ -1,6 +1,7 @@
 import HeroBtnSelect from "./HeroBtnSelect";
 
 export default function VisaOptions({ fields, link, btnText }) {
+  console.log(fields, link);
   return (
     <div className="flex gap-[10px] items-end max-sm:flex-col">
       <div className="flex flex-1 gap-[10px] max-sm:w-full">

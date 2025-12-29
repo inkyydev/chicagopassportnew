@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import phoneIcon from "../../../assets/phone-icon.svg";
 import mailIcon from "../../../assets/email-icon.svg";
@@ -44,11 +44,14 @@ const getInitialLang = () => {
 };
 
 export default function Header() {
+  const navigate = useNavigate();
+
   const [isActive, setIsActive] = useState(false);
   const [currentLang, setCurrentLang] = useState(getInitialLang);
 
   const [visasOpen, setVisasOpen] = useState(false);
   const [eVisasOpen, setEVisasOpen] = useState(false);
+  const [USOpen, setUSOpen] = useState(false);
 
   const isMobile = () => window.innerWidth < 1024;
 
@@ -60,6 +63,7 @@ export default function Header() {
     setIsActive(false);
     setVisasOpen(false);
     setEVisasOpen(false);
+    setUSOpen(false);
   };
 
   const toggleLanguage = () => {
@@ -71,6 +75,19 @@ export default function Header() {
       setCurrentLang("EN");
     }
     window.location.reload();
+  };
+
+  const handlePassportSelect = (index) => {
+    closeMenu();
+
+    if (window.location.pathname === "/us-passport") {
+      window.dispatchEvent(
+        new CustomEvent("passport-change", { detail: index })
+      );
+      return;
+    }
+
+    navigate("/us-passport", { state: { activeIndex: index } });
   };
 
   useEffect(() => {
@@ -156,9 +173,60 @@ export default function Header() {
                   }
                 `}
               >
-                <Link onClick={closeMenu} to="/us-passport">
-                  US Passport
-                </Link>
+                <div
+                  className="relative w-full lg:w-auto"
+                  onMouseEnter={() => !isMobile() && setUSOpen(true)}
+                  onMouseLeave={() => !isMobile() && setUSOpen(false)}
+                >
+                  <button
+                    className="flex items-center text-[16px] pb-[0px] lg:pb-[10px] cursor-pointer text-[#4e5063] hover:text-[#be1e2d]"
+                    onClick={(e) => {
+                      if (isMobile()) {
+                        e.preventDefault();
+                        setUSOpen((p) => !p);
+                        setVisasOpen(false);
+                        setEVisasOpen(false);
+                      }
+                    }}
+                  >
+                    US Passport
+                    <Chevron open={USOpen} />
+                  </button>
+
+                  <div
+                    className={`
+                      lg:absolute
+                      mt-[0px] bg-white rounded-lg shadow-lg
+                      w-[calc(100%-20px)] lg:min-w-[260px]
+                      overflow-hidden transition-all duration-300
+                      py-[0px] lg:py-[7px]
+                      ${
+                        USOpen
+                          ? "opacity-100 pointer-events-auto max-h-[500px]"
+                          : "opacity-0 pointer-events-none max-h-0"
+                      }
+                      lg:max-h-none
+                    `}
+                  >
+                    {[
+                      "New Passport",
+                      "Passport Renewal",
+                      "Child Passport",
+                      "Lost Passport",
+                      "Passport Name Change",
+                      "Second Limited Passport",
+                      "Additional Requirements for US Passports",
+                    ].map((label, index) => (
+                      <button
+                        key={index}
+                        onClick={() => handlePassportSelect(index)}
+                        className="block px-4 py-2 text-[14px] text-left text-[#4e5063] hover:text-[#be1e2d] cursor-pointer"
+                      >
+                        {label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
 
                 {/* VISAS */}
                 <div
@@ -168,13 +236,14 @@ export default function Header() {
                 >
                   <Link
                     to="/visas"
-                    className="flex items-center text-[16px] md:text-[16px] sm:text-[16px] pb-[0px] lg:pb-[10px]"
+                    className="flex items-center text-[16px] pb-[0px] lg:pb-[10px]"
                     onClick={(e) => {
                       if (isMobile()) {
                         if (!visasOpen) {
                           e.preventDefault();
                           setVisasOpen(true);
                           setEVisasOpen(false);
+                          setUSOpen(false);
                         } else {
                           closeMenu();
                         }
@@ -190,6 +259,7 @@ export default function Header() {
                         e.stopPropagation();
                         setVisasOpen((p) => !p);
                         setEVisasOpen(false);
+                        setUSOpen(false);
                       }}
                     >
                       <Chevron open={visasOpen} />
@@ -198,14 +268,9 @@ export default function Header() {
 
                   <div
                     className={`
-                      lg:absolute
-                      mt-[5px] md:mt-[0px]
-                      bg-white
-                      rounded-lg
-                      shadow-lg
+                      lg:absolute mt-[0px] bg-white rounded-lg shadow-lg
                       w-[calc(100%-20px)] lg:min-w-[220px] lg:w-auto
-                      overflow-hidden
-                      transition-all duration-300
+                      overflow-hidden transition-all duration-300
                       py-[0px] lg:py-[7px]
                       ${
                         visasOpen
@@ -243,13 +308,14 @@ export default function Header() {
                 >
                   <Link
                     to="/e-visas"
-                    className="flex items-center text-[16px] md:text-[16px] sm:text-[16px] pb-[0px] lg:pb-[10px]"
+                    className="flex items-center text-[16px] pb-[0px] lg:pb-[10px]"
                     onClick={(e) => {
                       if (isMobile()) {
                         if (!eVisasOpen) {
                           e.preventDefault();
                           setEVisasOpen(true);
                           setVisasOpen(false);
+                          setUSOpen(false);
                         } else {
                           closeMenu();
                         }
@@ -265,6 +331,7 @@ export default function Header() {
                         e.stopPropagation();
                         setEVisasOpen((p) => !p);
                         setVisasOpen(false);
+                        setUSOpen(false);
                       }}
                     >
                       <Chevron open={eVisasOpen} />
@@ -273,14 +340,9 @@ export default function Header() {
 
                   <div
                     className={`
-                      lg:absolute
-                       mt-[5px] md:mt-[0px]
-                      bg-white
-                      rounded-lg
-                      shadow-lg
+                      lg:absolute mt-[0px] bg-white rounded-lg shadow-lg
                       w-[calc(100%-20px)] lg:min-w-[220px] lg:w-auto
-                      overflow-hidden
-                      transition-all duration-300
+                      overflow-hidden transition-all duration-300
                       py-[0px] lg:py-[7px]
                       ${
                         eVisasOpen
@@ -320,6 +382,7 @@ export default function Header() {
                 </Link>
               </div>
 
+              {/* MOBILE MENU ICON */}
               <div
                 onClick={handleMenu}
                 className="flex lg:hidden flex-col gap-[5px] items-end"
@@ -337,6 +400,7 @@ export default function Header() {
               </div>
             </div>
 
+            {/* RIGHT ICONS */}
             <div className="max-w-[auto] lg:max-w-[126px] flex items-center gap-[5px] lg:gap-[10px] justify-end lg:justify-start">
               <Link className="w-[45px] h-[45px] lg:w-[52px] lg:h-[52px] flex justify-center items-center border border-[#D0DDEA] rounded-full hover:opacity-70">
                 <img src={accountIcon} alt="account" />

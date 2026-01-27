@@ -11,7 +11,7 @@ import heroImg from "../../../assets/hero-img.png";
 
 export default function Hero() {
   const [chooseValue, setChooseValue] = useState("passport");
-  const [activeIndexValue, setActiveIndexValue] = useState(0);
+  const [activeIndexValue, setActiveIndexValue] = useState("new-passport");
   const [activeValueVisa, setActiveValueVisa] = useState("china");
   const [activeValueEVisa, setActiveValueEVisa] = useState("india-evisa");
 

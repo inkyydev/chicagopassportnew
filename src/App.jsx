@@ -15,6 +15,13 @@ import PrivacyPolicy from "./scenes/pages/terms/PrivacyPolicy";
 import TermsConditions from "./scenes/pages/terms/TermsConditions";
 import RefundPolicy from "./scenes/pages/terms/RefundPolicy";
 import UkEtaVisa from "./scenes/pages/visas/UkEtaVisa";
+import NewPassport from "./scenes/pages/us-passport/NewPassport";
+import PassportRenewal from "./scenes/pages/us-passport/PassportRenewal";
+import ChildPassport from "./scenes/pages/us-passport/ChildPassport";
+import LostPassport from "./scenes/pages/us-passport/LostPassport";
+import PassportNameChange from "./scenes/pages/us-passport/PassportNameChange";
+import SecondLimitedPassport from "./scenes/pages/us-passport/SecondLimitedPassport";
+import AdditionalRequirements from "./scenes/pages/us-passport/AdditionalRequirements";
 
 const router = createBrowserRouter([
   {
@@ -27,7 +34,25 @@ const router = createBrowserRouter([
       { path: "/e-visas/:slug", element: <EvisasSingle /> },
       { path: "/contact-us", element: <Contact /> },
       { path: "/visa-process", element: <VisaProcess /> },
-      { path: "/us-passport", element: <UsPassport /> },
+      {
+        path: "/us-passport",
+        element: <UsPassport />,
+        children: [
+          { path: "new-passport", element: <NewPassport /> },
+          { path: "passport-renewal", element: <PassportRenewal /> },
+          { path: "child-passport", element: <ChildPassport /> },
+          { path: "lost-passport", element: <LostPassport /> },
+          { path: "passport-name-change", element: <PassportNameChange /> },
+          {
+            path: "second-limited-passport",
+            element: <SecondLimitedPassport />,
+          },
+          {
+            path: "additional-requirements",
+            element: <AdditionalRequirements />,
+          },
+        ],
+      },
       { path: "/blog", element: <Blog /> },
       { path: "/blog/:slug", element: <BlogSinglePage /> },
       { path: "/privacy-policy", element: <PrivacyPolicy /> },

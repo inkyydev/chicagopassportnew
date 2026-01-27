@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import Plans from "./Plans";
 import { passportSections } from "../../../data";
 
@@ -5,7 +6,20 @@ export default function SelectVisaType({
   activePassportIndex,
   setActivePassportIndex,
   title,
+  enableRouting = false,
 }) {
+  const navigate = useNavigate();
+
+  const passportRoutes = [
+    "new-passport",
+    "passport-renewal",
+    "child-passport",
+    "lost-passport",
+    "passport-name-change",
+    "second-limited-passport",
+    "additional-requirements",
+  ];
+
   return (
     <>
       <div id="get_started">
@@ -30,7 +44,13 @@ export default function SelectVisaType({
                   type="radio"
                   name="passport-section"
                   checked={activePassportIndex === index}
-                  onChange={() => setActivePassportIndex(index)}
+                  onChange={() => {
+                    setActivePassportIndex(index);
+
+                    if (enableRouting) {
+                      navigate(`/us-passport/${passportRoutes[index]}`);
+                    }
+                  }}
                   className="absolute invisible -z-10 peer"
                 />
 

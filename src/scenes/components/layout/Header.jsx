@@ -82,7 +82,7 @@ export default function Header() {
 
     if (window.location.pathname === "/us-passport") {
       window.dispatchEvent(
-        new CustomEvent("passport-change", { detail: index })
+        new CustomEvent("passport-change", { detail: index }),
       );
       return;
     }
@@ -114,6 +114,19 @@ export default function Header() {
       body.classList.remove("active");
     };
   }, [isActive]);
+
+  const passportLinks = [
+    { label: "New Passport", path: "new-passport" },
+    { label: "Passport Renewal", path: "passport-renewal" },
+    { label: "Child Passport", path: "child-passport" },
+    { label: "Lost Passport", path: "lost-passport" },
+    { label: "Passport Name Change", path: "passport-name-change" },
+    { label: "Second Limited Passport", path: "second-limited-passport" },
+    {
+      label: "Additional Requirements for US Passports",
+      path: "additional-requirements",
+    },
+  ];
 
   return (
     <header>
@@ -208,27 +221,19 @@ export default function Header() {
                       lg:max-h-none
                     `}
                   >
-                    {[
-                      "New Passport",
-                      "Passport Renewal",
-                      "Child Passport",
-                      "Lost Passport",
-                      "Passport Name Change",
-                      "Second Limited Passport",
-                      "Additional Requirements for US Passports",
-                    ].map((label, index) => (
-                      <button
+                    {passportLinks.map((item, index) => (
+                      <Link
                         key={index}
-                        onClick={() => handlePassportSelect(index)}
+                        to={`/us-passport/${item.path}`}
+                        onClick={closeMenu}
                         className="block px-4 py-2 text-[14px] text-left text-[#4e5063] hover:text-[#be1e2d] cursor-pointer"
                       >
-                        {label}
-                      </button>
+                        {item.label}
+                      </Link>
                     ))}
                   </div>
                 </div>
 
-                {/* VISAS */}
                 <div
                   className="relative w-full lg:w-auto"
                   onMouseEnter={() => !isMobile() && setVisasOpen(true)}
@@ -300,7 +305,6 @@ export default function Header() {
                   </div>
                 </div>
 
-                {/* E-VISAS */}
                 <div
                   className="relative w-full lg:w-auto"
                   onMouseEnter={() => !isMobile() && setEVisasOpen(true)}

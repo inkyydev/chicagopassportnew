@@ -59,6 +59,7 @@ export default function SinglePageArchive({
           <SelectVisaType
             activePassportIndex={activeIndex}
             setActivePassportIndex={setActiveIndex}
+            enableRouting={mode === "passport"}
             title={
               mode === "passport"
                 ? "Select Passport Type"

@@ -13,18 +13,21 @@ export default function PassportHeroSelect({ handleChange, activeIndexValue }) {
             <option value="" disabled>
               Choose
             </option>
-            <option value="0">New Passport</option>
-            <option value="1">Passport Renewal</option>
-            <option value="2">Child Passport</option>
-            <option value="3">Lost Passport</option>
-            <option value="4">Passport Name Change</option>
-            <option value="5">Second Limited Passport</option>
-            <option value="6">Additional Requirements for US Passports</option>
+            <option value="new-passport">New Passport</option>
+            <option value="passport-renewal">Passport Renewal</option>
+            <option value="child-passport">Child Passport</option>
+            <option value="lost-passport">Lost Passport</option>
+            <option value="passport-name-change">Passport Name Change</option>
+            <option value="second-limited-passport">
+              Second Limited Passport
+            </option>
+            <option value="additional-requirements">
+              Additional Requirements for US Passports
+            </option>
           </select>
           <HeroBtnSelect
             text="Get Started"
-            path="/us-passport"
-            activeIndexValue={activeIndexValue}
+            path={`/us-passport/${activeIndexValue}`}
           />
         </div>
       </div>

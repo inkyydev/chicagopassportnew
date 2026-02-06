@@ -116,8 +116,8 @@ export default function Header() {
   }, [isActive]);
 
   const passportLinks = [
-    { label: "New Passport", path: "new-passport" },
     { label: "Passport Renewal", path: "passport-renewal" },
+    { label: "New Passport", path: "new-passport" },
     { label: "Child Passport", path: "child-passport" },
     { label: "Lost Passport", path: "lost-passport" },
     { label: "Passport Name Change", path: "passport-name-change" },
@@ -168,7 +168,7 @@ export default function Header() {
             <div className="flex-1">
               <div
                 className={`
-                  flex items-center gap-[20px] lg:gap-[30px]
+                  flex items-center gap-[20px] lg:gap-[18px]
                   justify-start lg:justify-center
                   fixed lg:static top-[85px] left-[0]
                   bg-brand-light lg:bg-transparent
@@ -177,6 +177,7 @@ export default function Header() {
                   transition-all duration-200
                   border-t border-[rgba(18,34,65,0.1)] lg:border-none
                   items-start
+                  text-[14px]
                   pl-[20px] lg:pl-0
                   pt-[30px] lg:pt-0
                   ${
@@ -192,7 +193,7 @@ export default function Header() {
                   onMouseLeave={() => !isMobile() && setUSOpen(false)}
                 >
                   <button
-                    className="flex items-center text-[16px] pb-[0px] lg:pb-[10px] cursor-pointer text-[#4e5063] hover:text-[#be1e2d]"
+                    className="flex items-center text-[14px] md:text-[14px] pb-[0px] lg:pb-[10px] cursor-pointer text-[#4e5063] hover:text-[#be1e2d]"
                     onClick={(e) => {
                       if (isMobile()) {
                         e.preventDefault();
@@ -241,7 +242,7 @@ export default function Header() {
                 >
                   <Link
                     to="/visas"
-                    className="flex items-center text-[16px] pb-[0px] lg:pb-[10px]"
+                    className="flex items-center text-[14px] md:text-[14px] pb-[0px] lg:pb-[10px]"
                     onClick={(e) => {
                       if (isMobile()) {
                         if (!visasOpen) {
@@ -312,7 +313,7 @@ export default function Header() {
                 >
                   <Link
                     to="/e-visas"
-                    className="flex items-center text-[16px] pb-[0px] lg:pb-[10px]"
+                    className="flex items-center text-[14px] md:text-[14px] pb-[0px] lg:pb-[10px]"
                     onClick={(e) => {
                       if (isMobile()) {
                         if (!eVisasOpen) {
@@ -380,6 +381,9 @@ export default function Header() {
                 </Link>
                 <Link onClick={closeMenu} to="/visa-process">
                   Process
+                </Link>
+                <Link onClick={closeMenu} to="/passport-photo-services">
+                  Onsite Photo Service
                 </Link>
                 <Link onClick={closeMenu} to="/contact-us">
                   Contact us

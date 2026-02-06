@@ -22,6 +22,8 @@ import LostPassport from "./scenes/pages/us-passport/LostPassport";
 import PassportNameChange from "./scenes/pages/us-passport/PassportNameChange";
 import SecondLimitedPassport from "./scenes/pages/us-passport/SecondLimitedPassport";
 import AdditionalRequirements from "./scenes/pages/us-passport/AdditionalRequirements";
+import PassportPhotoServices from "./scenes/pages/photo-services/PassportPhotoServices";
+import VisaPhotoServices from "./scenes/pages/photo-services/VisaPhotoServices";
 
 const router = createBrowserRouter([
   {
@@ -59,6 +61,8 @@ const router = createBrowserRouter([
       { path: "/terms-conditions", element: <TermsConditions /> },
       { path: "/refund-policy", element: <RefundPolicy /> },
       { path: "/uk-eta-vise", element: <UkEtaVisa /> },
+      { path: "/passport-photo-services", element: <PassportPhotoServices /> },
+      { path: "/visa-photo-services", element: <VisaPhotoServices /> },
     ],
   },
 ]);
